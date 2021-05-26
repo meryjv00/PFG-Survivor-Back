@@ -35,9 +35,8 @@ require('./routes/user.routes.js')(app);
 module.exports = app;
 
 //Ruta de bienvenida
-app.get("/", (req, res) => {
+app.get("/", function (req, res) {
     res.send('¡Back Survivor!');
 });
-
 
 app.listen(6060);
