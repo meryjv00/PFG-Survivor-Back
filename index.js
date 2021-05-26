@@ -39,4 +39,4 @@ app.get("/", function (req, res) {
     res.send('¡Back Survivor!');
 });
 
-app.listen(6060);
+app.listen(process.env.PORT || 6060);
