@@ -36,9 +36,8 @@ module.exports = app;
 
 //Ruta de bienvenida
 app.get("/", (req, res) => {
-    res.json({ message: "API SURVIVOR - BIENVENIDO" });
+    res.send('¡Back Survivor!');
 });
-
 
 
 app.listen(6060);
