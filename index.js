@@ -11,8 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const firebase = require("firebase/app");
+require('firebase-admin');
 require("firebase/auth");
 require("firebase/firestore");
+require("firebase/storage");
+global.XMLHttpRequest = require("xhr2");
 
 const firebaseConfig = {
     apiKey: "AIzaSyBk3lAsk9X_Xo4A0tTVRdqHjrpopoIYVjc",

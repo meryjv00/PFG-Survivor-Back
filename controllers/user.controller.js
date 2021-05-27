@@ -1,4 +1,5 @@
 const firebase = require("firebase/app");
+const db = firebase.firestore();
 require("firebase/auth");
 require("firebase/firestore");
 
@@ -9,8 +10,7 @@ app.use(bodyParser.json());
 
 
 //Update user login
-exports.updateUserLogin = (req, res) => {
-    var db = firebase.firestore();
+updateUserLogin = (req, res) => {
     var user = req.body.user;
     db.collection("users").doc(user.uid).get()
         .then((doc) => {
@@ -28,7 +28,7 @@ exports.updateUserLogin = (req, res) => {
                 }).then(user => {
                     res.status(200).send({ status: 200, message: user });
                 }).catch(error => {
-                    return res.status(404).send({ status: 404, message: error });
+                    return res.status(500).send({ status: 500, message: error });
                 });
             }
             // Ya está registrado: actualizar estado en línea
@@ -39,10 +39,58 @@ exports.updateUserLogin = (req, res) => {
                 }).then(user => {
                     res.status(200).send({ status: 200, message: user });
                 }).catch(error => {
-                    return res.status(404).send({ status: 404, message: error });
+                    return res.status(500).send({ status: 500, message: error });
                 });
             }
 
         });
+}
 
+getUser = (req, res) => {
+    var uid = req.body.uid;
+    db.collection("users").doc(uid).get()
+        .then((doc) => {
+            var user = {
+                'uid': doc.id,
+                'status': doc.data().status,
+                'displayName': doc.data().displayName,
+                'photoURL': doc.data().photoURL,
+                'email': doc.data().email,
+                'coins': doc.data().coins,
+            }
+            res.status(200).send({ status: 200, message: user });
+        })
+        .catch((error) => {
+            return res.status(500).send({ status: 500, message: error });
+        });
+}
+
+getItemsUser = (req, res) => {
+    var uid = req.body.uid;
+    var items = [];
+    db.collection('users').doc(uid).collection('items').get()
+        .then((doc) => {
+            doc.forEach(item => {
+                const itemUsu = {
+                    'id': item.id,
+                    'name': item.data().name,
+                    'description': item.data().description,
+                    'img': item.data().img,
+                    'price': item.data().price,
+                    'obtainedDate': String(item.data().obtainedDate.toDate()).substring(4, 15)
+                }
+                items.push(itemUsu);
+            });
+            res.status(200).send({ status: 200, message: items });
+
+        })
+        .catch((error) => {
+            return res.status(500).send({ status: 500, message: error });
+        });
+}
+
+module.exports = {
+    updateUserLogin,
+    getUser,
+    getItemsUser
 }

@@ -17,8 +17,11 @@
     "express-mysql-session": "^2.1.5",
     "express-session": "^1.17.1",
     "firebase": "^8.6.2",
+    "firebase-admin": "^9.8.0",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.5.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "xhr2": "^0.2.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }

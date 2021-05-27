@@ -1,4 +1,6 @@
-const controller = require("../controllers/user.controller");
+const authController = require("../controllers/auth.controller");
+const userController = require("../controllers/user.controller");
+const chatController = require("../controllers/chat.controller");
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -9,19 +11,18 @@ module.exports = function(app) {
         next();
     });
 
-    //--Update user login
-    app.post(
-        '/api/updateUserLogin', controller.updateUserLogin
-    );
+    app.post('/api/login', authController.login);
 
-/*     app.put(
-        '/api/updatePersona',  controller.updatePersona
-    );
+    app.post('/api/registro', authController.registro);
 
-    app.delete(
-        '/api/deletePersona', controller.deletePersona
-    );
- */
+    app.post('/api/sendPasswordResetEmail', authController.sendPasswordResetEmail);
+    
+    app.post('/api/updateUserLogin', userController.updateUserLogin);
 
+    app.post('/api/getUser', userController.getUser);
+
+    app.post('/api/getItemsUser', userController.getItemsUser);
+
+    app.post('/api/getImgsChat', chatController.getImgsChat);
 
 };
