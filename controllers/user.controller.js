@@ -1,5 +1,7 @@
 const firebase = require("firebase/app");
 const db = firebase.firestore();
+const auth = firebase.auth();
+
 require("firebase/auth");
 require("firebase/firestore");
 
@@ -8,10 +10,18 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
+/* auth.onAuthStateChanged(function (user) {
+    if (user) {
+        console.log('LOGED');
+    } else {
+        console.log('NOT LOGED');
+    }
+}); */
 
 //Update user login
 updateUserLogin = (req, res) => {
     var user = req.body.user;
+    auth.CurrentUser = user; 
     db.collection("users").doc(user.uid).get()
         .then((doc) => {
 
