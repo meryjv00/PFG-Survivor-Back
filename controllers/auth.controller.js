@@ -13,6 +13,7 @@ var photoURL = 'https://www.softzone.es/app/uploads/2018/04/guest.png';
 login = (req, res) => {
     auth.signInWithEmailAndPassword(req.body.email, req.body.pass)
         .then(user => {
+            auth.CurrentUser = user.user;
             res.status(200).send({ status: 200, message: user.user });
         })
         .catch(error => {
@@ -24,7 +25,7 @@ login = (req, res) => {
 registro = (req, res) => {
     auth.createUserWithEmailAndPassword(req.body.email, req.body.pass)
         .then(user => {
-
+            auth.CurrentUser = user.user;
             user.user.updateProfile({
                 displayName: req.body.name,
                 photoURL: photoURL
@@ -54,5 +55,5 @@ sendPasswordResetEmail = (req, res) => {
 module.exports = {
     login,
     registro,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
 }
