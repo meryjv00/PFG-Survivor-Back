@@ -34,7 +34,7 @@ firebase.initializeApp(firebaseConfig);
 app.set("view engine", "jade");
 
 //Importamos las rutas
-require('./routes/user.routes.js')(app);
+require('./routes/app.routes.js')(app);
 
 //Exportamos los métodos de esta clase.
 module.exports = app;

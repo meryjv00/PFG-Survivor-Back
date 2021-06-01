@@ -48,25 +48,24 @@ getFriendsUID = (req, res) => {
     var friends = [];
     var userUID = req.params.userUID;
     db.collection('users').doc(userUID).collection('friends').get()
-    .then(doc => {
-        doc.forEach(docu => {
-            const user = {
-                'uid': docu.id,
-                'displayName': docu.data().displayName,
-                'photoURL': docu.data().photoURL,
-                'email': docu.data().email,
-                'status': docu.data().status,
-                'coins': docu.data().coins,
-            }
-            friends.push(user);
-            console.log(user);
+        .then(doc => {
+            doc.forEach(docu => {
+                const user = {
+                    'uid': docu.id,
+                    'displayName': docu.data().displayName,
+                    'photoURL': docu.data().photoURL,
+                    'email': docu.data().email,
+                    'status': docu.data().status,
+                    'coins': docu.data().coins,
+                }
+                friends.push(user);
+            });
+            res.status(200).send({ status: 200, message: friends });
+        })
+        .catch(error => {
+            console.log(error);
+            return res.status(500).send({ status: 500, message: error });
         });
-        res.status(200).send({ status: 200, message: friends });
-    })
-    .catch(error => {
-        console.log(error);
-        return res.status(500).send({ status: 500, message: error });
-    });
 }
 
 
@@ -160,11 +159,46 @@ acceptFriendRequest = (req, res) => {
         });
 }
 
+getSentFriendsRequests = (req, res) => {
+    var sentRequests = [];
+    var userUID = req.params.userUID;
+    db.collection('users').doc(userUID).collection('sentFriendsRequests').get()
+    .then((doc) => {
+        doc.forEach(docu => {
+            sentRequests.push(docu.id);
+        });
+        res.status(200).send({ status: 200, message: sentRequests });
+    })
+    .catch(error => {
+        console.log(error);
+        return res.status(500).send({ status: 500, message: error });
+    });
+}
+
+getDataFriendship = (req, res) => {
+    var friendUID = req.params.friendUID;
+    var userUID = req.params.userUID;
+
+    db.collection('users').doc(userUID).collection('friends').doc(friendUID).get()
+    .then(doc => {
+        var date = String(doc.data().friendshipDate.toDate());
+        date = date.substring(4, 15)
+        res.status(200).send({ status: 200, message: date });
+
+    })
+    .catch(error => {
+        console.log(error);
+        return res.status(500).send({ status: 500, message: error });
+    });
+}
+
 module.exports = {
     getUsers,
     getFriendsUID,
     sendFriendRequest,
     deleteFriendRequest,
     deleteFriend,
-    acceptFriendRequest
+    acceptFriendRequest,
+    getSentFriendsRequests,
+    getDataFriendship
 }

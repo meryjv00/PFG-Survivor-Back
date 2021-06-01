@@ -27,7 +27,6 @@ updateUserLogin = (req, res) => {
 
             // Registro usuario Firestore
             if (doc.data() == undefined) {
-                console.log('No está registrado');
                 db.collection("users").doc(user.uid).set({
                     email: user.email,
                     displayName: user.displayName,
@@ -43,7 +42,6 @@ updateUserLogin = (req, res) => {
             }
             // Ya está registrado: actualizar estado en línea
             else {
-                console.log('Está registrado');
                 db.collection("users").doc(user.uid).update({
                     status: 'online'
                 }).then(user => {
@@ -127,9 +125,10 @@ updateProfilePhoto = (req, res) => {
 }
 
 updateName = (req, res) => {
-    var user = req.body.user;
-    db.collection("users").doc(user.uid).update({
-        displayName: user.displayName,
+    var userUID = req.params.userUID;
+    var name = req.body.name;
+    db.collection("users").doc(userUID).update({
+        displayName: name,
     })
         .then(ok => {
             res.status(200).send({ status: 200, message: ok });
@@ -179,6 +178,23 @@ updatePass = (req, res) => {
         });
 }
 
+updateStatus = (req, res) => {
+    var userUID = req.params.userUID;
+    var status = req.body.status;
+
+    db.collection("users").doc(userUID).update({
+        status: status
+    })
+        .then(ok => {
+            res.status(200).send({ status: 200, message: ok });
+        })
+        .catch(error => {
+            console.log(error);
+            return res.status(500).send({ status: 500, message: error });
+        });
+}
+
+
 module.exports = {
     updateUserLogin,
     getUser,
@@ -186,5 +202,6 @@ module.exports = {
     updateProfilePhoto,
     updateName,
     updateEmail,
-    updatePass
+    updatePass,
+    updateStatus
 }
