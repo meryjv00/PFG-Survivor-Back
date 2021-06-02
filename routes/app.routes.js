@@ -21,14 +21,14 @@ module.exports = function (app) {
     app.post('/api/sendPasswordResetEmail', authController.sendPasswordResetEmail);
 
     // USER
-    app.post('/api/updateUserLogin', [authJwt.verifyToken], userController.updateUserLogin);
+    app.post('/api/updateUserLogin', userController.updateUserLogin);
     app.get('/api/getUser/:userUID', userController.getUser);
-    app.post('/api/getItemsUser', [authJwt.verifyToken], userController.getItemsUser);
+    app.post('/api/getItemsUser', userController.getItemsUser);
     app.post('/api/updateProfilePhoto/:userUID', [authJwt.verifyToken], userController.updateProfilePhoto);
     app.put('/api/updateName/:userUID', [authJwt.verifyToken], userController.updateName);
     app.put('/api/updateEmail/:userUID', [authJwt.verifyToken], userController.updateEmail);
     app.put('/api/updatePass/:userUID', [authJwt.verifyToken], userController.updatePass);
-    app.put('/api/updateStatus/:userUID', [authJwt.verifyToken], userController.updateStatus);
+    app.put('/api/updateStatus/:userUID', userController.updateStatus);
 
     // CHAT
     app.post('/api/getImgsChat', [authJwt.verifyToken], chatController.getImgsChat);
@@ -50,10 +50,10 @@ module.exports = function (app) {
     app.put('/api/sendFriendRequest/:userUID/:friendUID', comunidadController.sendFriendRequest);
     app.delete('/api/deleteFriendRequest/:userUID/:friendUID', [authJwt.verifyToken], comunidadController.deleteFriendRequest);
     app.delete('/api/deleteFriend/:userUID/:friendUID', [authJwt.verifyToken], comunidadController.deleteFriend);
-    app.put('/api/acceptFriendRequest/:userUID/:friendUID', [authJwt.verifyToken], comunidadController.acceptFriendRequest);
-    app.get('/api/getFriendsUID/:userUID', [authJwt.verifyToken], comunidadController.getFriendsUID);
-    app.get('/api/getSentFriendsRequests/:userUID', [authJwt.verifyToken], comunidadController.getSentFriendsRequests);
-    app.get('/api/getDataFriendship/:userUID/:friendUID', [authJwt.verifyToken], comunidadController.getDataFriendship);
+    app.put('/api/acceptFriendRequest/:userUID/:friendUID', comunidadController.acceptFriendRequest);
+    app.get('/api/getFriendsUID/:userUID', comunidadController.getFriendsUID);
+    app.get('/api/getSentFriendsRequests/:userUID', [authJwt.verifyToken],comunidadController.getSentFriendsRequests);
+    app.get('/api/getDataFriendship/:userUID/:friendUID', [authJwt.verifyToken],comunidadController.getDataFriendship);
 
 
     // RANKINGS

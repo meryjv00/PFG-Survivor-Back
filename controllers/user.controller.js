@@ -2,6 +2,7 @@ const firebase = require("firebase/app");
 const db = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
+const config = require("../config/auth.config.js");
 
 require("firebase/auth");
 require("firebase/firestore");
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 //Update user login
 updateUserLogin = (req, res) => {
     var user = req.body.user;
+    config.secret = user.stsTokenManager.accessToken;
     db.collection("users").doc(user.uid).get()
         .then((doc) => {
 
