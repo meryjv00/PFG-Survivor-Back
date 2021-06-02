@@ -3,16 +3,22 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require("cors");
 var app = express();
+
 var corsOptions = {
-    origin: "http://localhost:4200"
+    //origin: "http://localhost:4200"
+    origin: "https://pfg-survivor.netlify.app"
 };
+
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const firebase = require("firebase/app");
+require('firebase-admin');
 require("firebase/auth");
 require("firebase/firestore");
+require("firebase/storage");
+global.XMLHttpRequest = require("xhr2");
 
 const firebaseConfig = {
     apiKey: "AIzaSyBk3lAsk9X_Xo4A0tTVRdqHjrpopoIYVjc",
@@ -29,7 +35,7 @@ firebase.initializeApp(firebaseConfig);
 app.set("view engine", "jade");
 
 //Importamos las rutas
-require('./routes/user.routes.js')(app);
+require('./routes/app.routes.js')(app);
 
 //Exportamos los métodos de esta clase.
 module.exports = app;
