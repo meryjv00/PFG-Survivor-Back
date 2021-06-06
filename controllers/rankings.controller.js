@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
-const top = 2;
+const top = 7;
 
 getPodiumCoins = (req, res) => {
     var rankingCoins = [];
