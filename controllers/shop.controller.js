@@ -21,6 +21,7 @@ getItems = (req, res) => {
                     'img': docu.data().img,
                     'price': docu.data().price,
                     'owned': false,
+                    'available': docu.data().available,
                     'obtainedDate': null
                 }
                 items.push(item);
