@@ -59,6 +59,7 @@ module.exports = function (app) {
     // RANKINGS
     app.get('/api/getPodiumCoins/:userUID', rankingsController.getPodiumCoins);
     app.get('/api/getLevelRankings', rankingsController.getLevelRankings);
+    app.get('/api/getRankings/:rankingUID/:userUID', rankingsController.getUsersRankingByLevel);
 
 
 };

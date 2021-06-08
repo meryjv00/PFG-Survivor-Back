@@ -8,6 +8,28 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const top = 7;
 
+
+getUsersRankingByLevel = (req, res) =>{
+    var userUID = req.params.userUID;
+    var rankingUID = req.params.rankingUID;
+
+    db.collection('rankings').doc(rankingUID).collection('users').doc(userUID).get()
+    .then((doc) => {
+        var user = {
+            'uid': doc.id,
+            'enemiesKilled': doc.data().enemiesKilled,
+            'punctuation': doc.data().punctuation,
+            'time': doc.data().time
+        }
+        res.status(200).send({ status: 200, message: user });
+        
+    })
+    .catch((error) => {
+        return res.status(500).send({ status: 500, message: error });
+    });
+
+}
+
 getPodiumCoins = (req, res) => {
     var rankingCoins = [];
     var userUID = req.params.userUID;
@@ -62,5 +84,6 @@ getLevelRankings = (req, res) => {
 
 module.exports = {
     getPodiumCoins,
-    getLevelRankings
+    getLevelRankings,
+    getUsersRankingByLevel
 }
