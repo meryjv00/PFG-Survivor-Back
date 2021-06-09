@@ -1,12 +1,12 @@
 module.exports = {
     firebaseConfig: {
-        apiKey: "AIzaSyBk3lAsk9X_Xo4A0tTVRdqHjrpopoIYVjc",
-        authDomain: "pfg-survivor-40d0e.firebaseapp.com",
-        projectId: "pfg-survivor-40d0e",
-        storageBucket: "pfg-survivor-40d0e.appspot.com",
-        messagingSenderId: "873225520432",
-        appId: "1:873225520432:web:fa887ae2ff52532f4a34f5",
-        measurementId: "G-RE9BBXF4E2"
+        apiKey: "AIzaSyCl00CgxMvwEBQz5vdZ-lzRCYY-_0TNUnY",
+        authDomain: "pfg-survivor-cd919.firebaseapp.com",
+        projectId: "pfg-survivor-cd919",
+        storageBucket: "pfg-survivor-cd919.appspot.com",
+        messagingSenderId: "530404504797",
+        appId: "1:530404504797:web:e69f39db33b1f6a43dd734",
+        measurementId: "G-9YE9SXD70S"
     }
 }
 
