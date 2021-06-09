@@ -61,5 +61,5 @@ module.exports = function (app) {
     app.get('/api/getLevelRankings', rankingsController.getLevelRankings);
     app.get('/api/getRankings/:rankingUID/:userUID', rankingsController.getUsersRankingByLevel);
     app.put('/api/updateRanking/:rankingUID', rankingsController.updateUserRanking);
-
+    app.post('/api/createRanking/:rankingUID', rankingsController.createUserRanking);
 };
