@@ -29,10 +29,24 @@ getUsersRankingByLevel = (req, res) =>{
 
 }
 
+createUserRanking  = (req, res) =>{
+    var rankingUID = req.params.rankingUID;
+    var user = req.body;
+    db.collection('rankings').doc(rankingUID).collection('users').doc(user.uid).set({
+            uid: user.uid,
+            enemiesKilled: user.enemiesKilled,
+            punctuation: user.punctuation,
+            time: user.time
+    }).then(ok => {
+        res.status(200).send({ status: 200, message: ok });
+    }).catch(error => {
+        return res.status(500).send({ status: 500, message: error });
+    });
+}
+
 updateUserRanking  = (req, res) =>{
     var rankingUID = req.params.rankingUID;
     var user = req.body;
-    console.log(user);
     db.collection('rankings').doc(rankingUID).collection('users').doc(user.uid).update({
             uid: user.uid,
             enemiesKilled: user.enemiesKilled,
@@ -101,5 +115,6 @@ module.exports = {
     getPodiumCoins,
     getLevelRankings,
     getUsersRankingByLevel,
-    updateUserRanking
+    updateUserRanking,
+    createUserRanking
 }
