@@ -5,8 +5,11 @@ var cors = require("cors");
 var app = express();
 
 var corsOptions = {
-    //origin: "http://localhost:4200"
-    origin: "https://pfg-survivor.netlify.app"
+    origin: [
+        "http://localhost:4200",
+        "https://pfg-survivor.netlify.app",
+        "http://localhost:9876",
+    ]
 };
 
 app.use(cors(corsOptions));
