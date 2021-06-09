@@ -8,8 +8,6 @@ const config = require("../config/auth.config.js");
 
 verifyToken = (req, res, next) => {
     let token = req.headers.authorization;
-    // console.log(token);
-    console.log(config.secret);
 
     if (!token) {
         return res.status(403).send({
@@ -20,8 +18,9 @@ verifyToken = (req, res, next) => {
     
     next();
     
-    console.log(token);
-    console.log(config.secret);
+    // console.log(token);
+    // console.log(config.secret);
+    
 /*     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
             return res.status(401).send({
