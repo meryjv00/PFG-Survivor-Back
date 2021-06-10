@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 //Update user login
 updateUserLogin = (req, res) => {
     var user = req.body.user;
-    config.secret = user.stsTokenManager.accessToken;
+    //config.secret = user.stsTokenManager.accessToken;
     db.collection("users").doc(user.uid).get()
         .then((doc) => {
 
